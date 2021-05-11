@@ -17,19 +17,21 @@ def places ():
         print(i)
 
 def distance(distance1):
-    adress="תל אביב"
-    api_key="מופיע בקובץ שהוגש במודל"
-    url="https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s" %(adress,distance1,api_key)
-    response=requests.get(url).json()
-    url2="https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s" %(distance1,api_key)
-    response2=requests.get(url2).json()
-    distance = response['rows'][0]['elements'][0]['distance']['text']
-    duration = response['rows'][0]['elements'][0]['duration']['text']
-    latitude = response2['results'][0]['geometry']['location']['lat']
-    longitude = response2['results'][0]['geometry']['location']['lng']
-    detailsPerCity = (distance, duration) + (latitude, longitude) 
-    destinationsPerCity[distance1] = detailsPerCity 
-
+    try:
+        adress="תל אביב"
+        api_key="מופיע בתוך הקובץ שהוכנס במודל"
+        url="https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s" %(adress,distance1,api_key)
+        response=requests.get(url).json()
+        url2="https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s" %(distance1,api_key)
+        response2=requests.get(url2).json()
+        distance = response['rows'][0]['elements'][0]['distance']['text']
+        duration = response['rows'][0]['elements'][0]['duration']['text']
+        latitude = response2['results'][0]['geometry']['location']['lat']
+        longitude = response2['results'][0]['geometry']['location']['lng']
+        detailsPerCity = (distance, duration) + (latitude, longitude) 
+        destinationsPerCity[distance1] = detailsPerCity
+    except:
+        print("לא מזהה את הערך" +" "+ distance1)
     
     
 destinationsPerCity=dict()
