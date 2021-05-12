@@ -19,15 +19,22 @@ def places ():
 def distance(distance1):
     try:
         adress="תל אביב"
-        api_key="מופיע בתוך הקובץ שהוכנס במודל"
+        api_key="AIzaSyCClFfCKHUrEUbLlQ2sR6hj8s6Wz2suEow"
         url="https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s" %(adress,distance1,api_key)
         response=requests.get(url).json()
         url2="https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s" %(distance1,api_key)
         response2=requests.get(url2).json()
-        distance = response['rows'][0]['elements'][0]['distance']['text']
-        duration = response['rows'][0]['elements'][0]['duration']['text']
+        distance =response['rows'][0]['elements'][0]['distance']['text']
+        duration = response['rows'][0]['elements'][0]['duration']['value']
         latitude = response2['results'][0]['geometry']['location']['lat']
         longitude = response2['results'][0]['geometry']['location']['lng']
+        if((duration/3600)<1):
+            duration=duration/60
+            duration=str(duration) +""+ 'min'
+        else:
+            hours=int(duration/3600)
+            min=round(((duration%3600)/3600)*60,2)
+            duration=str(hours)+' hours '+ str(min)+ ' min '
         detailsPerCity = (distance, duration) + (latitude, longitude) 
         destinationsPerCity[distance1] = detailsPerCity
     except:
@@ -39,9 +46,8 @@ places ()
         
 
 
-        
-# ThreeHighest = nlargest(3, distanceandcity, key = distanceandcity.get)
-# print("Dictionary with 3 highest values:")
-# print(ThreeHighest)
+
+
+
 
 
