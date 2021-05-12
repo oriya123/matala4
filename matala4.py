@@ -19,7 +19,7 @@ def places ():
 def distance(distance1):
     try:
         adress="תל אביב"
-        api_key="AIzaSyCClFfCKHUrEUbLlQ2sR6hj8s6Wz2suEow"
+        api_key="מופיע בקובת שהועלה למודל"
         url="https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s" %(adress,distance1,api_key)
         response=requests.get(url).json()
         url2="https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s" %(distance1,api_key)
