@@ -19,7 +19,7 @@ def places ():
 def distance(distance1):
     try:
         adress="תל אביב"
-        api_key="מופיע בקובת שהועלה למודל"
+        api_key="מופיע בתוך הקובץ שהוגש במודל"
         url="https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s&destinations=%s&key=%s" %(adress,distance1,api_key)
         response=requests.get(url).json()
         url2="https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s" %(distance1,api_key)
@@ -35,6 +35,8 @@ def distance(distance1):
             hours=int(duration/3600)
             min=round(((duration%3600)/3600)*60,2)
             duration=str(hours)+' hours '+ str(min)+ ' min '
+            latitude ='lat:'+ str(latitude)
+            longitude ='lng:'+ str(longitude)
         detailsPerCity = (distance, duration) + (latitude, longitude) 
         destinationsPerCity[distance1] = detailsPerCity
     except:
@@ -43,11 +45,3 @@ def distance(distance1):
     
 destinationsPerCity=dict()
 places ()
-        
-
-
-
-
-
-
-
